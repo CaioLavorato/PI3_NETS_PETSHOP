@@ -26,8 +26,8 @@ public class ConnectionDB {
 
             //Propriedades para armazenamento do usuário e da senh a do banco
             Properties properties = new Properties();
-           //properties.put("user", "root");
-            //properties.put("password", "");
+            properties.put("user", "root");
+            properties.put("password", "");
 
             //Realiza a conexão com o banco
             connection = DriverManager.getConnection(dbUrl, properties);
