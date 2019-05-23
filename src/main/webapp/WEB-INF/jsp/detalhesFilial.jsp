@@ -6,9 +6,6 @@
         <title>Detalhes da Filial</title>
         <link rel="stylesheet" type="text/css" media="screen" href="./css/DetalheFilial.css" />
     </head>
-
-    <body>
-
     <body>
 
         <form action="${pageContext.request.contextPath}/atualizarFilial"
@@ -43,7 +40,7 @@
 
                 </div>
 
-                <h2 align="center" class="formatatit"> Endere�o </h2>
+                <h2 align="center" class="formatatit"> Endereco </h2>
 
                 <div class="rightcontact">
 
@@ -123,18 +120,15 @@
             <button type="submit" class="botao-excluir">Excluir Cadastro</button>
         </form>
 
+
+        <div class="navbar">
+            <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
+
+            <div class="menu">
+                <ul>
+                    <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
+                </ul>
+            </div>
+
     </body>
-</html>
-
-
-<div class="navbar">
-    <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
-
-    <div class="menu">
-        <ul>
-            <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
-        </ul>
-    </div>
-
-</body>
 </html>

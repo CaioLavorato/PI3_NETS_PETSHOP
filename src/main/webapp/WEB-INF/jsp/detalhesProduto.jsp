@@ -9,8 +9,6 @@
 
     <body>
 
-    <body>
-
         <form class="formAletarar" action="${pageContext.request.contextPath}/atualizarProduto"
               method="post" >
             <h1>Detalhe do Produto</h1>
@@ -64,19 +62,16 @@
               method="post">
             <input type="hidden" name="id_produto" value="${produto.id}">
             <button type="submit" class="botao-excluir">Excluir Cadastro</button>
+
+            <div class="navbar">
+                <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
+
+                <div class="menu">
+                    <ul>
+                        <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
+                    </ul>
+                </div>
+            </div>
         </form>
     </body>
-</html>
-
-
-<div class="navbar">
-    <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
-
-    <div class="menu">
-        <ul>
-            <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
-        </ul>
-    </div>
-
-</body>
 </html>

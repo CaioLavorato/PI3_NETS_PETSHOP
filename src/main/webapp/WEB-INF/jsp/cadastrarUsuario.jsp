@@ -9,8 +9,6 @@
 
     <body>
 
-    <body>
-
         <form action="${pageContext.request.contextPath}/cadastrarUsuario" method="post">
             <h1>Cadastro de Usuario</h1>
 
@@ -70,21 +68,17 @@
             <button type="submit" class="botao-cadastrar">Cadastrar</button>
             <button type="reset" class="botao-apagar">Limpar</button>
 
-        </form>	
 
+        </form>	
+        <div class="navbar">
+            <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
+
+            <div class="menu">
+                <ul>
+                    <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
+                </ul>
+            </div>
+        </div>
 
     </body>
-</html>
-
-
-<div class="navbar">
-    <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
-
-    <div class="menu">
-        <ul>
-            <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
-        </ul>
-    </div>
-
-</body>
 </html>

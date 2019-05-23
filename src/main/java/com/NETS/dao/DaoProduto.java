@@ -24,7 +24,7 @@ public class DaoProduto {
         
         long id_produto = 0;
         
-        String query = "INSERT INTO Produto (nomeProduto,valor,descricao,id_categoria) VALUES (?,?,?,?)";
+        String query = "INSERT INTO Produto (nomeProduto,valor,descricao,id_categoria,removido) VALUES (?,?,?,?,1)";
         
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -150,7 +150,7 @@ public class DaoProduto {
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
             
-            if (!nomeProduto.isEmpty()){
+            if (nomeProduto.isEmpty()){
                 stmt.setString(1, nomeProduto);
             }
             

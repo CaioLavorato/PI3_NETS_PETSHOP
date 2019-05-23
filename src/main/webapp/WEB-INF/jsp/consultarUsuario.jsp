@@ -10,8 +10,6 @@
 
     <body>
 
-    <body>
-
         <form action="${pageContext.request.contextPath}/consultarUsuario"
               method="get">
             <h1>Consulta de Usuario</h1>
@@ -64,7 +62,6 @@
 
                             </c:forEach>
 
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -72,22 +69,18 @@
                 <div>
                     <button type="submit" class="botao-consultar">Consultar</button>
                 </div>
+            </div>
 
         </form> 
+        <div class="navbar">
+            <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
 
+            <div class="menu">
+                <ul>
+                    <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
+                </ul>
+            </div>
+        </div>
 
     </body>
-</html>
-
-
-<div class="navbar">
-    <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
-
-    <div class="menu">
-        <ul>
-            <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
-        </ul>
-    </div>
-
-</body>
 </html>

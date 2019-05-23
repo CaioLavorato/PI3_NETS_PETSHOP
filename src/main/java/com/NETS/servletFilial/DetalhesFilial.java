@@ -23,38 +23,36 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Caio Lavorato
  */
-public class DetalhesFilial {
 
-    @WebServlet(name = "DetalhesFilial", urlPatterns = {"/detalhesFilial"})
-    public class DetalheFilial extends HttpServlet {
+@WebServlet(name = "DetalhesFilial", urlPatterns = {"/detalhesFilial"})
+public class DetalhesFilial extends HttpServlet {
 
-        @Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
-                throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-            String id = request.getParameter("id_filial");
-            Integer int_id = Integer.parseInt(id);
+        String id = request.getParameter("id_filial");
+        Integer int_id = Integer.parseInt(id);
 
-            ArrayList<Filial> listaProduto = null;
+        ArrayList<Filial> listaProduto = null;
 
-            try {
-                Filial filial = DaoFilial.consultaPorId(int_id);
+        try {
+            Filial filial = DaoFilial.consultaPorId(int_id);
 
-                request.setAttribute("filial", filial);
-                request.setAttribute("endereco", filial.getEndereco());
-            } catch (SQLException ex) {
-                Logger.getLogger(DetalheFilial.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            RequestDispatcher dispatcher
-                    = request.getRequestDispatcher("WEB-INF/jsp/detalhesFilial.jsp");
-            dispatcher.forward(request, response);
-
+            request.setAttribute("filial", filial);
+            request.setAttribute("endereco", filial.getEndereco());
+        } catch (SQLException ex) {
+            Logger.getLogger(DetalhesFilial.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
-                throws ServletException, IOException {
-        }
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("WEB-INF/jsp/detalhesFilial.jsp");
+        dispatcher.forward(request, response);
 
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    }
+
 }

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class DaoFilial {
         public static Filial inserirFilial(Filial filial) throws SQLException{
         
-        long id_endereco = DaoEndereco.inserirEndereco(filial);
+        long id_endereco = DaoEndereco.inserirEndereco(filial.getEndereco());
         String query = "INSERT INTO filial (nome_fantasia, cnpj,"
                 + "inscricao_estadual, telefone, email, id_endereco) VALUES (?,?,?,?,?,?)";
         
@@ -34,7 +34,16 @@ public class DaoFilial {
             stmt.setString(4, filial.getTelefone());
             stmt.setString(5, filial.getEmail());
             stmt.setLong(6, id_endereco);
+            stmt.executeUpdate();
+            
+            long id_filial;
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                id_filial =(generatedKeys.getInt(1));
+            }
         }
+        
+        
         return filial;
     }
     

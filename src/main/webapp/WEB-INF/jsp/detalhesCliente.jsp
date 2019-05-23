@@ -126,7 +126,7 @@
 
         </form>	
 
-        <form class="botaoExcluir" action="${pageContext.request.contextPath}/excluir-cliente"
+        <form class="botaoExcluir" action="${pageContext.request.contextPath}/excluirCliente"
               accept-charset="" <input type="hidden" name="id_livro" value="${cliente.id}">
             <button type="submit" class="botao-excluir">Excluir Cadastro</button>
         </form>

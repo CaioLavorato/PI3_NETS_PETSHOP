@@ -14,6 +14,7 @@ import java.util.Date;
  * @author Caio Lavorato
  */
 public class Auxiliar {
+
     public static Date InputDateToUtilDate(String inputDate)
             throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -25,5 +26,5 @@ public class Auxiliar {
             throw new ParseException("Erro ao formatar data de input para util date.", 0);
         }
     }
-    
+
 }

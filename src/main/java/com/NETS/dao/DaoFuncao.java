@@ -23,7 +23,7 @@ public class DaoFuncao {
     
     public static Long cadastrarFuncao(Funcao funcao) throws SQLException {
 
-        String query = "INSERT INTO  funcao (nomeFuncao) VALUES (?)";
+        String query = "INSERT INTO  funcao (nome) VALUES (?)";
         Long id = 0L;
 
         try (Connection conn = ConnectionDB.getConnection();
@@ -55,7 +55,7 @@ public class DaoFuncao {
                 while (resultados.next()) {
                     Funcao funcao = new Funcao();
                     funcao.setId(resultados.getLong("idFuncao"));
-                    funcao.setNomeFuncao(resultados.getString("nomeFuncao"));
+                    funcao.setNomeFuncao(resultados.getString("nome"));
 
                     listaFuncao.add(funcao);
                 }
@@ -67,7 +67,7 @@ public class DaoFuncao {
 
     public static Funcao obterFuncaoPOrId(Long id) throws SQLException {
 
-        String query = "SELECT * FROM funcao WHERE funcao.id =?";
+        String query = "SELECT * FROM funcao WHERE funcao.idFuncao =?";
         Funcao funcao = new Funcao();
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -76,8 +76,8 @@ public class DaoFuncao {
             try (ResultSet resultados = stmt.executeQuery()) {
 
                 while (resultados.next()) {
-                    funcao.setId(resultados.getLong("id"));
-                    funcao.setNomeFuncao(resultados.getString("nome_funcao"));
+                    funcao.setId(resultados.getLong("idFuncao"));
+                    funcao.setNomeFuncao(resultados.getString("nome"));
                 }
             }
         }
@@ -88,7 +88,7 @@ public class DaoFuncao {
         Connection conn = ConnectionDB.getConnection();
         ResultSet resultados = null;
 
-        String query = "SELECT * FROM funcao WHERE funcao.nomeFuncao = ?";
+        String query = "SELECT * FROM funcao WHERE funcao.nome = ?";
         Funcao funcao = new Funcao();
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -96,7 +96,7 @@ public class DaoFuncao {
             resultados = stmt.executeQuery();
 
             while (resultados.next()) {
-                funcao.setNomeFuncao(resultados.getString("nomeFuncao"));
+                funcao.setNomeFuncao(resultados.getString("nome"));
                 Long idfuncao = new Long(resultados.getInt("idFuncao"));
                 funcao.setId(idfuncao);
             }

@@ -4,10 +4,8 @@
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <meta charset="utf-8" />
         <title>Cadastro de Produto</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="./css/CadastrarLivro.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="./css/CadastrarProduto.css" />
     </head>
-
-    <body>
 
     <body>
 
@@ -31,7 +29,7 @@
 
                     <div class="form-group">
                         <p>Nome do Produto<span>*</span></p>
-                        <input type="text" name="nomeProduto" id="titulo" required="true" />
+                        <input type="text" name="nomeProduto" id="nomeProduto" required="true" />
                     </div> 
 
                     <div class="form-group">
@@ -53,20 +51,18 @@
         </form>	
 
 
+
+        <div class="navbar">
+            <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
+
+            <div class="menu">
+                <ul>
+                    <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
+                </ul>
+            </div>
+        </div>
+
     </body>
-</html>
-
-
-<div class="navbar">
-    <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
-
-    <div class="menu">
-        <ul>
-            <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
-        </ul>
-    </div>
-
-</body>
 </html>
 
 

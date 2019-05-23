@@ -59,7 +59,7 @@ public class AtualizaFilial extends HttpServlet {
             request.setAttribute("filial", filial);
             request.setAttribute("endereco", endereco);
             response.sendRedirect(request.getContextPath() +
-               "/detalheFilial?id_filial=" + Long.toString(filial.getId()));
+               "/detalhesFilial?id_filial=" + Long.toString(filial.getId()));
         } catch (SQLException ex) {
             Logger.getLogger(AtualizaFilial.class.getName()).log(Level.SEVERE, null, ex);
         }
