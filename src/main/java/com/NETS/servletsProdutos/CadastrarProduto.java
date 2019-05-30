@@ -59,7 +59,7 @@ public class CadastrarProduto extends HttpServlet {
         } catch(Exception e){      
             e.printStackTrace();
         }
-        String titulo = request.getParameter("nomeProduto");
+        String nomeProduto = request.getParameter("nomeProduto");
         String descricao = request.getParameter("descricao");
         Long idCategoria = Long.parseLong(request.getParameter("categoria"));
         
@@ -73,7 +73,7 @@ public class CadastrarProduto extends HttpServlet {
             message = "Falha ao localizar categoria selecionada";
         }
         
-        Produto produto = new Produto(titulo, valor, descricao, categoriaProduto);
+        Produto produto = new Produto(nomeProduto, valor, descricao, categoriaProduto);
         try {
             DaoProduto.inserirProduto(produto);
             

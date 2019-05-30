@@ -60,7 +60,7 @@
 
                     <div class="form-group">
                         <p>Admissão: <span>*</span></p>	
-                        <input type="date" name="dt_admissao" id="admissao" required="true" />
+                        <input type="date" name="dt_admissao" id="dt_admissao" required="true" />
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@
 
     <body>
         <form action="${pageContext.request.contextPath}/consultarFilial"
-              method="post">>
+              method="post">
             <h1>Consulta de Filial</h1>
 
             <div class="contentform">

@@ -83,7 +83,7 @@ public class DaoVenda {
                     filial.setId(result.getInt("id_filial"));
                     venda.setFilial(filial);
                     
-                    usuario.setId(result.getLong("id_usuario"));
+                    usuario.setId(result.getInt("id_usuario"));
                     venda.setUsuario(usuario);
                     
                     venda.setId(result.getLong("id"));
@@ -133,7 +133,7 @@ public class DaoVenda {
                     filial.setId(result.getInt("id_filial"));
                     venda.setFilial(filial);
                     
-                    usuario.setId(result.getLong("id_usuario"));
+                    usuario.setId(result.getInt("id_usuario"));
                     venda.setUsuario(usuario);
                     
                     venda.setId(result.getLong("id"));

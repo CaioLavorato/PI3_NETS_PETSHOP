@@ -4,14 +4,14 @@
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <meta charset="utf-8" />
         <title>Detalhe do Produto</title>
-        <link rel="stylesheet" type="text/css" media="screen" href="./css/DetalheLivro.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="./css/DetalheProduto.css" />
     </head>
 
     <body>
 
-        <form class="formAletarar" action="${pageContext.request.contextPath}/atualizarProduto"
+        <form action="${pageContext.request.contextPath}/atualizarProduto"
               method="post" >
-            <h1>Detalhe do Produto</h1>
+            <h1>Detalhes do Produto</h1>
 
             <div class="contentform">
 
@@ -30,7 +30,7 @@
 
                     <div class="form-group">
                         <p>Nome do Produto<span>*</span></p>
-                        <input type="text" name="titulo" id="titulo" required="true" value="${produto.nomeProduto}" />
+                        <input type="text" name="nomeProduto" id="nomeProduto" required="true" value="${produto.nomeProduto}" />
                     </div> 
 
                     <div class="form-group">
@@ -53,25 +53,28 @@
 
 
         </form>	
-        <form class="botaoEstoque" action="${pageContext.request.contextPath}/estoque?"
+        <form class="botaoEstoque" action="${pageContext.request.contextPath}/estoque"
               method="get">
-            <input type="hidden" name="id" value="${produto.id}">
+            <input type="hidden" name="id_produto" value="${produto.id}">
             <button type="submit" class="botao-estoque">Gerenciar Estoque</button>
         </form>
-        <form class="botaoExcluir" action="${pageContext.request.contextPath}/excluirProduto"
+            
+      <form class="botaoExcluir" action="${pageContext.request.contextPath}/excluirProduto"
               method="post">
             <input type="hidden" name="id_produto" value="${produto.id}">
             <button type="submit" class="botao-excluir">Excluir Cadastro</button>
-
-            <div class="navbar">
-                <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
-
-                <div class="menu">
-                    <ul>
-                        <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
-                    </ul>
-                </div>
-            </div>
         </form>
+            
+            
+        <div class="navbar">
+            <a style="text-decoration: none" href="PaginaPrincipal.html"><h1 class="title"></h1></a>
+
+            <div class="menu">
+                <ul>
+                    <li><a class="button" id="home" href="PaginaPrincipal.html">Retornar</a></li>
+                </ul>
+            </div>
+        </div>
+
     </body>
 </html>

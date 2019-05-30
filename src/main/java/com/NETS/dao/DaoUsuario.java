@@ -23,23 +23,21 @@ import java.util.List;
  */
 public class DaoUsuario {
 
-
     public static void inserirUsuario(Usuario usuario) throws SQLException {
 
         Connection conn = ConnectionDB.getConnection();
 
-        String query = "INSERT INTO usuario (nome, sobrenome, sexo, funcao, dt_admissao, telefone) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO usuario (nome,sobrenome,sexo,idfuncao,dt_admissao,telefone,removido) VALUES (?,?,?,?,?,?,0)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
-            Calendar dataCal = Calendar.getInstance();
-            dataCal.setTime(usuario.getDtAdmissao());
 
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getSobrenome());
             stmt.setString(3, usuario.getSexo());
-            stmt.setString(4, usuario.getFuncao().getNomeFuncao());
-            stmt.setDate(5, new java.sql.Date(dataCal.getTimeInMillis()));
+            stmt.setLong(4, usuario.getFuncao().getId());
+            java.sql.Date data = new java.sql.Date(usuario.getDtAdmissao().getTime());
+            stmt.setDate(5, data);
             stmt.setString(6, usuario.getTelefone());
 
             stmt.executeUpdate();
@@ -49,32 +47,38 @@ public class DaoUsuario {
 
     }
 
-    public static Usuario obterUsuarioPorId(Long id) throws SQLException {
+    public static Usuario obterUsuarioPorId(Integer usuarioIdString) throws SQLException {
+
         Usuario usuario = new Usuario();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
 
         String query = "SELECT * FROM usuario WHERE usuario.id = ? AND removido = false";
-        Funcao funcao = new Funcao();
+
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setLong(1, id);
+            stmt.setLong(1, usuarioIdString);
 
             try (ResultSet result = stmt.executeQuery()) {
 
-                while (result.next()) {
+                result.first();
 
-                    usuario.setId(result.getLong("id"));
-                    usuario.setNome(result.getString("nome"));
-                    usuario.setSobrenome(result.getString("sobrenome"));
-                    //funcao.setId(result.getLong("id_funcao"));
-                    usuario.setSexo(result.getString("sexo"));
-                    //Date dtAdmissao = result.getDate("dt_admissao");
-                    //usuario.setDtAdmissao(dtAdmissao);
-                }
+                usuario.setId(result.getInt("id"));
+                usuario.setNome(result.getString("nome"));
+                usuario.setSobrenome(result.getString("sobrenome"));
+                usuario.setSexo(result.getString("sexo"));
+                usuario.setDtAdmissao(result.getDate("dt_admissao"));
+                usuario.setTelefone(result.getString("telefone"));
+
+                Funcao funcao = DaoFuncao.obterFuncaoPOrId(result.getLong("idfuncao"));
+                usuario.setFuncao(funcao);
+
+            } catch (Exception e) {
+                System.out.println("Sem Usuario com este id" + e.getMessage());
+                return null;
             }
         }
-        //usuario.setFuncao(DaoFuncao.obterFuncaoPOrId(funcao.getId()));
+
         return usuario;
     }
 
@@ -93,8 +97,8 @@ public class DaoUsuario {
 
     public static void alterarUsuario(Usuario usuario) throws SQLException {
 
-        String query = "UPDATE usuario SET nome=?, sobre_nome=?, sexo=?, da_admissao, "
-                + "funcao=? telefone=? WHERE usuario.id =?";
+        String query = "UPDATE usuario SET nome=?, sobrenome=?, sexo=?, idfuncao=?, "
+                + "dt_admissao=?, telefone=?  WHERE usuario.id =?";
 
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -102,46 +106,54 @@ public class DaoUsuario {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getSobrenome());
             stmt.setString(3, usuario.getSexo());
+            stmt.setString(4, usuario.getFuncao().getNomeFuncao());
             java.sql.Date data = new java.sql.Date(usuario.getDtAdmissao().getTime());
-            stmt.setDate(4, data);
-            stmt.setLong(5, usuario.getId());
+            stmt.setDate(5, data);
             stmt.setString(6, usuario.getTelefone());
             stmt.executeUpdate();
         }
     }
 
-    public static List<Usuario> obterUsuarioPorNome(String nome) throws SQLException {
+    public static ArrayList<Usuario> obterUsuarioPorNome(String nome) throws SQLException {
 
-        Connection conn = ConnectionDB.getConnection();
-        ResultSet resultados = null;
-        List<Usuario> listUsuario = new ArrayList<>();
+        ArrayList<Usuario> listUsuario = new ArrayList<>();
 
-        String query = "SELECT * FROM usuario WHERE nome = ? ";
-        try {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, nome);
-            resultados = stmt.executeQuery();
-
-            Usuario usuario = new Usuario();
-
-            while (resultados.next()) {
-                usuario.setId(new Long (resultados.getInt("id")));
-                usuario.setNome(resultados.getString("nome"));
-                usuario.setSobrenome(resultados.getString("sobrenome"));
-                usuario.setSexo(resultados.getString("sexo"));
-                usuario.setFuncaoNome(resultados.getString("funcao"));
-                usuario.setDtAdmissao(resultados.getDate("dt_admissao"));
-                usuario.setTelefone(resultados.getString("telefone"));
-                
-                listUsuario.add(usuario);
-
-            }
-            return listUsuario;
-            
-        } catch (Exception e) {
-            throw new SQLException("erro ao consultar usuario", e.getCause());
+        String query = "SELECT * FROM usuario WHERE removido = false ";
+        if (!nome.isEmpty()) {
+            query = "SELECT * FROM usuario WHERE nome LIKE ? AND removido = 0";
         }
+        try (Connection conn = ConnectionDB.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            if (!nome.isEmpty()) {
+                stmt.setString(1, "%" + nome + "%");
+            }
+
+            try (ResultSet result = stmt.executeQuery()) {
+
+                while (result.next()) {
+                    Usuario usuario = new Usuario();
+                    Funcao funcao = new Funcao();
+
+                    usuario.setId(result.getInt("id"));
+                    usuario.setNome(result.getString("nome"));
+                    usuario.setSobrenome(result.getString("sobrenome"));
+                    usuario.setSexo(result.getString("sexo"));
+                    usuario.setDtAdmissao(result.getDate("dt_admissao"));
+                    usuario.setTelefone(result.getString("telefone"));
+
+                    funcao.setId(result.getLong("idfuncao"));
+                    usuario.setFuncao(funcao);
+                    listUsuario.add(usuario);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getCause());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listUsuario;
     }
 
-    
 }

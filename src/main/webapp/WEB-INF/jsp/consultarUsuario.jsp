@@ -11,7 +11,7 @@
     <body>
 
         <form action="${pageContext.request.contextPath}/consultarUsuario"
-              method="get">
+              method="post">
             <h1>Consulta de Usuario</h1>
 
             <div class="contentform">
@@ -35,41 +35,43 @@
                         </div>
                     </div>
 
-                    <div class="tabela">
-                        <fmt:setLocale value="pt-BR"></fmt:setLocale>
-                            <table>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Sobrenome</th>
-                                    <th>Sexo</th>
-                                    <th>Funcao</th>
-                                    <th>Data Admissao</th>
-                                    <th>Telefone</th>
-                                </tr>
-
-                            <c:forEach items="${listUsuario}" var="usuario">
-
-                                <tr>
-                                    <td> ${usuario.nome} </td>
-                                    <td> ${usuario.sobrenome} </td>
-                                    <td> ${usuario.sexo} </td>
-                                    <td> ${usuario.funcaoNome} </td>
-                                    <td> 
-                                        <fmt:formatDate value="${usuario.dtAdmissao}" type="date" dateStyle="short"></fmt:formatDate>
-                                        </td>
-                                        <td> ${usuario.telefone} </td>
-                                </tr>
-
-                            </c:forEach>
-
-                        </table>
-                    </div>
                 </div>
-
                 <div>
                     <button type="submit" class="botao-consultar">Consultar</button>
                 </div>
+
+                <div class="tabela">
+                    <fmt:setLocale value="pt-BR"></fmt:setLocale>
+                        <table>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Sobrenome</th>
+                                <th>Sexo</th>
+                                <th>Funcao</th>
+                                <th>Data Admissao</th>
+                                <th>Telefone</th>
+                            </tr>
+
+                        <c:forEach items="${listUsuario}" var="usuario">
+
+                            <tr>
+                                <td><a href="${pageContext.request.contextPath}/detalhesUsuario?id_usuario=<c:out value="${usuario.id}"/>"><c:out value="${usuario.nome}"/> <a/></td>
+                                <td> ${usuario.sobrenome} </td>
+                                <td> ${usuario.sexo} </td>
+                                <td> ${usuario.funcaoNome} </td>
+                                <td> 
+                                    <fmt:formatDate value="${usuario.dtAdmissao}" type="date" dateStyle="short"></fmt:formatDate>
+                                    </td>
+                                    <td> ${usuario.telefone} </td>
+                            </tr>
+
+                        </c:forEach>
+
+                    </table>
+                </div>
             </div>
+
+
 
         </form> 
         <div class="navbar">

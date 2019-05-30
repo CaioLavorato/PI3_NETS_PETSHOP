@@ -8,8 +8,8 @@
     </head>
 
     <body>
-
-        <form>
+        <form action="${pageContext.request.contextPath}/consultarProduto"
+              method="post">
             <h1>Consulta de Produto</h1>
 
             <div class="contentform">
@@ -17,7 +17,7 @@
                 <div>
                     <div class="form-group">
                         <p> Nome do Produto <span>*</span></p>
-                        <input type="text" name="nomeProduto" id="titulo" />
+                        <input type="text" name="nomeProduto" id="nomeProduto" required="true" />
                     </div> 
 
                     <p>Categoria<span>*</span></p>
@@ -30,26 +30,29 @@
                     </select>
                 </div>
             </div>
+            <div>
+                <button type="submit" class="botao-consultar">Consultar</button>
+            </div>
 
             <div class="tabela">
                 <table>
                     <tr>
                         <th>Nome do Produto</th>
                         <th>Categoria</th>
+                        <th>Valor</th>
                     </tr>
                     <c:forEach items="${listaProduto}" var="produto">   
                         <tr>
-                            <td ><a href="${pageContext.request.contextPath}/detalhesProduto?id=<c:out value="${produto.id}"/>"><c:out value="${produto.titulo}"/> <a/></td>
+                            <td ><a href="${pageContext.request.contextPath}/detalhesProduto?id_produto=<c:out value="${produto.id}"/>"><c:out value="${produto.nomeProduto}"/> <a/></td>
                             <td> <c:out value="${produto.categoria.nome}"/> </td>
+                            <td> <c:out value="${produto.valor}"/></td>
                         </tr>
                     </c:forEach>
 
                 </table>
             </div>
 
-            <div>
-                <button type="submit" class="botao-consultar">Consultar</button>
-            </div>
+
 
         </form> 
 

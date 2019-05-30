@@ -114,7 +114,7 @@
 
         </form>	
 
-        <form class="botaoExcluir" action="${pageContext.request.contextPath}/excluir-filial"
+        <form class="botaoExcluir" action="${pageContext.request.contextPath}/excluirFilial"
               method="post">
             <input type="hidden" name="id_filial" value="${filial.id}">
             <button type="submit" class="botao-excluir">Excluir Cadastro</button>

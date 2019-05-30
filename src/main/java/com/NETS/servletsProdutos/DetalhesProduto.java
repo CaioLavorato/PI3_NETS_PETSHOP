@@ -34,7 +34,7 @@ public class DetalhesProduto extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String id = request.getParameter("id");
+        String id = request.getParameter("id_produto");
         Long long_id = Long.parseLong(id);
         
         
@@ -42,9 +42,9 @@ public class DetalhesProduto extends HttpServlet {
         ArrayList<CategoriaProduto> listaCategoriaProduto = new ArrayList<CategoriaProduto>();
         
         try {
-            Produto livro = DaoProduto.consultaPorId(long_id);
+            Produto produto = DaoProduto.consultaPorId(long_id);
             
-            request.setAttribute("livro", livro);
+            request.setAttribute("produto", produto);
             
             listaCategoriaProduto = DaoCategoriaProduto.getCategorias();
             request.setAttribute("categorias", listaCategoriaProduto);

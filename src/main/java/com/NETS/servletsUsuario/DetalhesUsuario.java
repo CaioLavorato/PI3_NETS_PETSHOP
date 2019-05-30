@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.NETS.servletFilial;
+package com.NETS.servletsUsuario;
 
-import com.NETS.dao.DaoFilial;
-import com.NETS.models.Filial;
+import com.NETS.dao.DaoUsuario;
+import com.NETS.models.Usuario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,36 +23,37 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Caio Lavorato
  */
-
-@WebServlet(name = "DetalhesFilial", urlPatterns = {"/detalhesFilial"})
-public class DetalhesFilial extends HttpServlet {
+@WebServlet(name = "DetalhesUsuario", urlPatterns = {"/detalhesUsuario"})
+public class DetalhesUsuario extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String id = request.getParameter("id_filial");
+        String id = request.getParameter("id_usuario");
         Integer int_id = Integer.parseInt(id);
 
-        ArrayList<Filial> listaFilial = null;
+        ArrayList<Usuario> listUsuario = null;
 
         try {
-            Filial filial = DaoFilial.consultaPorId(int_id);
+            Usuario usuario = DaoUsuario.obterUsuarioPorId(int_id);
 
-            request.setAttribute("filial", filial);
-            request.setAttribute("endereco", filial.getEndereco());
+            request.setAttribute("usuario", usuario);
+            request.setAttribute("funcao", usuario.getFuncao());
+
         } catch (SQLException ex) {
-            Logger.getLogger(DetalhesFilial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DetalhesUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         RequestDispatcher dispatcher
-                = request.getRequestDispatcher("WEB-INF/jsp/detalhesFilial.jsp");
+                = request.getRequestDispatcher("WEB-INF/jsp/detalhesUsuario.jsp");
         dispatcher.forward(request, response);
-
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
     }
 
 }

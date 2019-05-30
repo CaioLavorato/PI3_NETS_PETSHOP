@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author caio.lavorato
  */
-@WebServlet(name = "AtualizaProduto", urlPatterns = {"/atualizaProduto"})
+@WebServlet(name = "AtualizaProduto", urlPatterns = {"/atualizarProduto"})
 public class AtualizarProduto extends HttpServlet {
 
     @Override
@@ -61,14 +62,8 @@ public class AtualizarProduto extends HttpServlet {
             message = "Falha ao atualizar informações do produto";
         }
         
-        // Armazena uma mensagem com o que ocorreu no ultimo evento
-        // em uma Session HTTP
-        HttpSession session = request.getSession();
-        session.setAttribute("message", message);
-        
-        // Redireciona para a mesma página de detalhes do livro com os
-        // dados atualizados
-        response.sendRedirect(request.getContextPath() +
-                "/detalheProduto?id=" + Long.toString(long_id));
+                RequestDispatcher dispatcher
+                = request.getRequestDispatcher("./consultarProduto");
+        dispatcher.forward(request, response);
     }
 }

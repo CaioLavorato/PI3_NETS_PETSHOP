@@ -29,36 +29,53 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ConsultarProduto", urlPatterns = {"/consultarProduto"})
 public class BuscaProdutos extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         ArrayList<CategoriaProduto> listaCategoriaProduto = new ArrayList<CategoriaProduto>();
-        
-        String nomeProduto = "";
-        if (request.getParameter("nomeProduto") != null){
-            nomeProduto = request.getParameter("nomeProduto");
-        }
-        
-        String categoria = request.getParameter("categoria");
-       
-        
-        ArrayList<Produto> listaProduto = null;
+        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
         try {
-            listaProduto = DaoProduto.consultarProduto(getInitParameter(nomeProduto));
-            
+            listaProduto = DaoProduto.consultarProduto("");
             listaCategoriaProduto = DaoCategoriaProduto.getCategorias();
-            request.setAttribute("categorias", listaCategoriaProduto);
-            
-            request.setAttribute("listaProduto", listaProduto);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(BuscaProdutos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        RequestDispatcher dispatcher = 
-	    request.getRequestDispatcher("WEB-INF/jsp/consultarProduto.jsp");
+        request.setAttribute("categorias", listaCategoriaProduto);
+
+        request.setAttribute("listaProduto", listaProduto);
+
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("WEB-INF/jsp/consultarProduto.jsp");
         dispatcher.forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String nomeProduto = "";
+        String categoriaProduto = "";
+        if (request.getParameter("nomeProduto") != null) {
+            nomeProduto = request.getParameter("nomeProduto");
+
+        }
+        categoriaProduto = request.getParameter("categoria");
+        
+
+        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
+        try {
+            listaProduto = DaoProduto.consultarProduto(nomeProduto);
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        request.setAttribute("listaProduto", listaProduto);
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("WEB-INF/jsp/consultarProduto.jsp");
+        dispatcher.forward(request, response);
+
+    }
 }
+

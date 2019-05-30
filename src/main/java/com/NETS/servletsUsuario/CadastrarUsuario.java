@@ -32,13 +32,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "CadastrarUsuario", urlPatterns = {"/cadastrarUsuario"})
 public class CadastrarUsuario extends HttpServlet {
 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // valor da funcao é no DOGET
         try {
             HttpSession sessao = request.getSession();
             ArrayList<Funcao> listaFuncao = DaoFuncao.obterListaFuncao();
@@ -57,31 +53,43 @@ public class CadastrarUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Usuario usuario = new Usuario();
+         Date data=null;
+        try {
+           data = Auxiliar.InputDateToUtilDate(request.getParameter("dt_admissao"));
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        String nomeUsuario = request.getParameter("nome");
+        String sexo = request.getParameter("sexo");
+        String telefone = request.getParameter("telefone");
+        String sobrenomeUsuario = request.getParameter("sobrenome");
+        String Funcao = request.getParameter("funcao");
 
-        HttpSession sessao = request.getSession();
+        Funcao funcao = new Funcao();
 
-        usuario.setNome(request.getParameter("nome"));
-        usuario.setSexo(request.getParameter("sexo"));
-        usuario.setTelefone(request.getParameter("telefone"));
-        usuario.setSobrenome(request.getParameter("sobrenome"));
-        usuario.setFuncaoNome(request.getParameter("funcao"));
+        String message = "";
 
         try {
-            //criando objeto funcao por nome
-            Date data = Auxiliar.InputDateToUtilDate(request.getParameter("dt_admissao"));
-            usuario.setDtAdmissao(data);
-            Funcao funcao = DaoFuncao.obterFuncaoPorNome(usuario.getFuncaoNome());
-            usuario.setFuncao(funcao);
-            DaoUsuario.inserirUsuario(usuario);
-
-            // funcao = DaoFuncao.obterFuncaoPOrId(idFuncao);
+            funcao = DaoFuncao.obterFuncaoPorNome(Funcao);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        } catch (ParseException ex) {
-            Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        Usuario usuario = new Usuario(nomeUsuario, sobrenomeUsuario, sexo, funcao, data, telefone);
+        try {
+            DaoUsuario.inserirUsuario(usuario);
+        } catch (SQLException ex) {
+             Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            message = "Falha ao cadastrar o Usuario";
+        }
+        
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("message", message);
+        
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher("WEB-INF/jsp/cadastrarUsuario.jsp");
         dispatcher.forward(request, response);

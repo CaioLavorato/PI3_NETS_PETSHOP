@@ -12,43 +12,56 @@ import java.util.Date;
  * @author Caio Lavorato
  */
 public class Usuario {
-        private Long id;
-    private String nome;
-    private String sobrenome;
+
+    private Integer id;
+    private String nomeUsuario;
+    private String sobrenomeUsuario;
     private Funcao funcao;
     private String sexo;
     private String telefone;
     private String email;
     private Date dtAdmissao;
+    private Long idfuncao;
     private String funcaoNome;
 
    
 
-    public Usuario() {
+    public Usuario(String nomeUsuario, String sobrenomeUsuario,String sexo,
+            Funcao funcao,Date dtAdmissao, String telefone) {
+        this.nomeUsuario = nomeUsuario;
+        this.sobrenomeUsuario = sobrenomeUsuario;
+        this.sexo = sexo;
+        this.funcao = funcao;
+        this.dtAdmissao = dtAdmissao;
+        this.telefone = telefone;
     }
 
-    public Long getId() {
+    public Usuario() {
+        
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public String getNome() {
-        return nome;
+        return nomeUsuario;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nomeUsuario = nome;
     }
 
     public String getSobrenome() {
-        return sobrenome;
+        return sobrenomeUsuario;
     }
 
     public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+        this.sobrenomeUsuario = sobrenome;
     }
 
     public Funcao getFuncao() {
@@ -90,8 +103,16 @@ public class Usuario {
     public void setDtAdmissao(Date dtAdmissao) {
         this.dtAdmissao = dtAdmissao;
     }
-    
-     public String getFuncaoNome() {
+
+    public Long getIdFuncao() {
+        return idfuncao;
+    }
+
+    public void setIdFuncao(Long idfuncao) {
+        this.idfuncao = idfuncao;
+    }
+
+    public String getFuncaoNome() {
         return funcaoNome;
     }
 

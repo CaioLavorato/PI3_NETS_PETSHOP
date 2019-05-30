@@ -8,7 +8,8 @@
     </head>
     <body>
 
-        <form>
+        <form action="${pageContext.request.contextPath}/atualizarUsuario"
+              method="post" >
             <h1>Detalhes do Usuario</h1>
 
             <div class="contentform">
@@ -29,6 +30,7 @@
                     <div class="form-group">
                         <p>Sexo <span>*</span></p>
                         <select type="text" name="sexo" required="true" />
+                        <option value="Selecione"> Selecione </option>
                         <option value="Masculino"> Masculino </option>
                         <option value="Feminino"> Feminino </option>
                         </select>
@@ -47,23 +49,33 @@
                 <div class="rightcontact">	
 
                     <div class="form-group">
-                        <p>Funcao <span>*</span></p>
-                        <select type="text" name="funcao" required="true" />
-                        <option value="Teste"> Teste </option>
+                        <p>Função <span>*</span></p>
+                        <select name="funcao" required="true" />
+                        <c:forEach items="${listaFuncao}" var ="funcao">
+                            <option value="${funcao.nomeFuncao}">${funcao.nomeFuncao}</option>
+                        </c:forEach>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <p>Admissão: <span>*</span></p>	
-                        <input type="date" name="admissao" id="admissao" required="true" />
+                        <input type="date" name="dt_admissao" id="dt_admissao" required="true" />
                     </div>
                 </div>
             </div>
-
+            <input type="hidden" name="id_usuario" value="${usuario.id}">
+            <input type="hidden" name="id_funcao" value="${funcao.id}">
             <button type="submit" class="botao-alterar">Alterar Dados</button>
-            <button type="submit" class="botao-excluir">Excluir Cadastro</button>
 
+            <form class="botaoExcluir" action="${pageContext.request.contextPath}/excluirUsuario"
+                  method="post">
+                <input type="hidden" name="id_usuario" value="${usuario.id}">
+                <button type="submit" class="botao-excluir">Excluir Cadastro</button>
+            </form>
         </form>	
+
+
+
 
 
         <div class="navbar">

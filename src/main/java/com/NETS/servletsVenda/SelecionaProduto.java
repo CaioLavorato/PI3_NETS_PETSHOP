@@ -137,7 +137,7 @@ public class SelecionaProduto extends HttpServlet {
         }
         else{
             try {
-                Usuario usuario = DaoUsuario.obterUsuarioPorId(Long.parseLong("1"));
+                Usuario usuario = DaoUsuario.obterUsuarioPorId(Integer.parseInt("1"));
                 Filial filial = DaoFilial.consultaPorId(1);
                 Venda venda = new Venda();
                 

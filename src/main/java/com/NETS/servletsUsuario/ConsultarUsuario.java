@@ -7,11 +7,12 @@ package com.NETS.servletsUsuario;
 
 import com.NETS.dao.DaoUsuario;
 import com.NETS.models.Usuario;
+import com.NETS.servletFilial.ConsultaFilial;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,19 +30,15 @@ public class ConsultarUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nome = request.getParameter("nome");
-        String sobrenome = request.getParameter("sobrenome");
-        String telefone = request.getParameter("telefone");
 
-        List<Usuario> listUsuario = new ArrayList<>();
-        if (nome != null) {
-            try {
-                listUsuario = DaoUsuario.obterUsuarioPorNome(nome);
-                request.setAttribute("listUsuario", listUsuario);
-            } catch (SQLException e) {
-            }
-            
+        ArrayList<Usuario> listUsuario = new ArrayList<Usuario>();
+        try {
+            listUsuario = DaoUsuario.obterUsuarioPorNome("");
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaFilial.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        request.setAttribute("listUsuario", listUsuario);
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher("WEB-INF/jsp/consultarUsuario.jsp");
         dispatcher.forward(request, response);
@@ -50,6 +47,27 @@ public class ConsultarUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String nome = "";
+        String sobrenome = "";
+        if (request.getParameter("nome") != null) {
+            nome = request.getParameter("nome");
+        }
+        sobrenome = request.getParameter("sobrenome");
+
+        ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
+        try {
+            listaUsuario = DaoUsuario.obterUsuarioPorNome(nome);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaFilial.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+
+        request.setAttribute("listUsuario", listaUsuario);
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("WEB-INF/jsp/consultarUsuario.jsp");
+        dispatcher.forward(request, response);
 
     }
 }
