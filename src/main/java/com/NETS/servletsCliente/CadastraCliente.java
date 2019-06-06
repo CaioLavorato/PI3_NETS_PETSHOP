@@ -70,7 +70,7 @@ public class CadastraCliente extends HttpServlet {
             ex.printStackTrace();
         }
         
-        response.sendRedirect(request.getContextPath() + "/CadastraCliente");
+        response.sendRedirect(request.getContextPath() + "/cadastrarCliente");
         
     }
 }

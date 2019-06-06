@@ -22,7 +22,7 @@
 
             <h1> VENDA - Cliente: ${clienteVenda.nome} ${clienteVenda.sobrenome}</h1>
             <fieldset>
-                <h2 class="fs-title">Produto <i class="fa fa-book" style="font-size: 30px;"></i></h2>
+                <h2 class="fs-title">Produto <i  style="font-size: 30px;"></i></h2>
 
                 <div>
 
@@ -46,21 +46,22 @@
                         <th>Selecionar</th>
                         <th>Nome do produto</th>
                         <th>Descricao</th>
+                        <th>Categoria</th>
                         <th>Estoque</th>
                         <th>Valor</th>
                         <th>Quantidade</th>
 
                     </tr>
 
-                    <c:forEach items="${listaProdutos}" var="produto">       
+                    <c:forEach items="${listaProduto}" var="produto">       
                         <tr>
-                            <td><input style="width: 25px; height: 15px;" type="radio" name="selectedItemId" value="${livro.id}"></td>  
-                            <td> ${prouduto.nomeProduto} </td>
+                            <td><input style="width: 25px; height: 15px;" type="radio" name="selectedItemId" value="${produto.id}"></td>  
+                            <td> ${produto.nomeProduto} </td>
                             <td> ${produto.descricao} </td>
                             <td> ${produto.categoria.nome} </td>
                             <td> <c:out value="${estoque[produto.id]}"/> </td>
                             <td> ${produto.valor}</td>
-                            <td><input class="estoque" type="number" name="${produto.id}" min="0" max="${estoque[produto.id]}" value="0"></td>
+                            <td><input class="estoque" name="quantidade" min="0" max="${estoque[produto.id]}" value="0"></td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -86,10 +87,8 @@
 
                     <c:forEach items="${shopCart}" var="item">       
                         <tr>
-                            <td> ${item.key.titulo} </td>
-                            <td> ${item.key.autor}</td>
-                            <td> ${item.key.editora} </td>
-                            <td> ${item.key.edicao}</td>
+                            <td> ${item.key.nomeProduto} </td>
+                            <td> ${item.key.descricao}</td>
                             <td> ${item.value} </td>
                             <td> ${item.key.valor}</td>
                             <td><a href="${pageContext.request.contextPath}/removerDoCarrinho?selectedItemId=<c:out value="${item.key.id}"/>">Remover<a/></td>
@@ -100,7 +99,7 @@
                     </tr>
                 </table>
                 <br>
-                Total da Venda <input readonly="true" type="text" name="total" ${total}>
+                Total da Venda <input readonly="true" type="text" name="total" value="${total}" >
             </div>
 
         </form>
@@ -109,7 +108,10 @@
         <form action="${pageContext.request.contextPath}/selecionaProduto" method="post">
             <button type="submit" class="botao-avancar">Realizar Venda</button>
         </form>
-        <button type="submit" class="botao-cancelar">Cancelar Venda</button>
+            
+                    <form action="${pageContext.request.contextPath}/cancelarVenda" method="post">
+            <button type="submit" class="botao-cancelar">Cancelar Venda</button>
+        </form>
 
     </fieldset>
 

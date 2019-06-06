@@ -23,6 +23,18 @@ public class Cliente {
         public Cliente() {
     }
 
+    public Cliente(Long id, String nome, String sobrenome, String cpf, String sexo, Date dtNascimento, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.cpf = cpf;
+        this.sexo = sexo;
+        this.dtNascimento = dtNascimento;
+        this.endereco = endereco;
+    }
+
+        
+        
     public Long getId() {
         return id;
     }

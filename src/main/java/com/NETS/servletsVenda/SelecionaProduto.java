@@ -59,7 +59,7 @@ public class SelecionaProduto extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/selecionaCliente");
             dispatcher.forward(request,response);    
         }
-        else{
+        else {
             
             ArrayList<Produto> listaProduto = new ArrayList<Produto>();
 
@@ -154,12 +154,12 @@ public class SelecionaProduto extends HttpServlet {
                     
                     ProdutoFilial produtoFilial = DaoEstoque.obterPorId(produto.getId(), filial.getId());
                     
-                    if (quantidade > produtoFilial.getEstoque()){
+                   /* if (quantidade > produtoFilial.getEstoque()){
 
                         cancelarVenda = true;
                         break;
                         
-                    }
+                    }*/
                     
                     ItemVenda itemVenda = new ItemVenda();
                     
@@ -191,7 +191,7 @@ public class SelecionaProduto extends HttpServlet {
                     session.removeAttribute("msg");
                    
                     response.sendRedirect(request.getContextPath()
-                            + "/confirmacaoVenda?idVenda="+venda.getId());
+                            + "/confirmarCompra?idVenda="+venda.getId());
                 }
 
             } catch (SQLException ex) {

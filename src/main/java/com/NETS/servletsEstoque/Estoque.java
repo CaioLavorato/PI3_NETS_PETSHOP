@@ -39,7 +39,7 @@ public class Estoque extends HttpServlet {
         RequestDispatcher dispatcher
         = request.getRequestDispatcher("WEB-INF/jsp/estoque.jsp");
         
-        String id = request.getParameter("id");
+        String id = request.getParameter("id_produto");
         Long long_id = Long.parseLong(id);
         
         try {
@@ -64,11 +64,13 @@ public class Estoque extends HttpServlet {
         
         ArrayList<String> parameterNames = new ArrayList<String>();
         
-        String id = request.getParameter("id");
+        String filialName=null;
+        String valor= null;
+        String id = request.getParameter("id_produto");
         Long long_id = Long.parseLong(id);
         
         // Remove the parameter ID from the request
-        request.removeAttribute("id");
+        request.removeAttribute("id_produto");
         
         ArrayList<Produto> listaProduto = null;
         ArrayList<CategoriaProduto> listaCategoriaProduto = new ArrayList<CategoriaProduto>();
@@ -84,8 +86,15 @@ public class Estoque extends HttpServlet {
         Enumeration enumeration = request.getParameterNames();
         while (enumeration.hasMoreElements()) {
             String parameterName = (String) enumeration.nextElement();
-            if (!"id".equals(parameterName))
-                parameterNames.add(parameterName);
+            if (!"id_produto".equals(parameterName)){
+            valor= request.getParameterMap().get("id_produto")[0];
+            parameterNames.add(parameterName);
+            }else if(parameterName.startsWith("Filial_")){
+            
+            String [] idParameter = parameterName.split("_");
+            for(int i = 0; i >idParameter.length;i++){
+            }
+                
         }
         
         ArrayList<ProdutoFilial> listaProdutoFilial = new ArrayList<ProdutoFilial>();
@@ -94,7 +103,7 @@ public class Estoque extends HttpServlet {
             try {
                 ProdutoFilial produtoFilial = new ProdutoFilial();
                 produtoFilial.setProduto(produto);
-                Filial filial = DaoFilial.consultaPorId(Integer.parseInt(parameter));
+                Filial filial = DaoFilial.consultaPorId(Integer.parseInt(valor));
                 Integer estoque = Integer.parseInt(request.getParameter(parameter));
                 produtoFilial.setEstoque(estoque);
                 produtoFilial.setFilial(filial);
@@ -115,7 +124,7 @@ public class Estoque extends HttpServlet {
         }
         
         response.sendRedirect(request.getContextPath() +
-                "/estoque?id=" + Long.toString(long_id));
+                "/estoque?id_produto=" + Long.toString(long_id));
 
     }
-}
+}}

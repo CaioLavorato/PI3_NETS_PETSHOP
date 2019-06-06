@@ -98,7 +98,7 @@ public class DaoUsuario {
     public static void alterarUsuario(Usuario usuario) throws SQLException {
 
         String query = "UPDATE usuario SET nome=?, sobrenome=?, sexo=?, idfuncao=?, "
-                + "dt_admissao=?, telefone=?  WHERE usuario.id =?";
+                + "dt_admissao=?, telefone=?  WHERE id =?";
 
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -106,10 +106,11 @@ public class DaoUsuario {
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getSobrenome());
             stmt.setString(3, usuario.getSexo());
-            stmt.setString(4, usuario.getFuncao().getNomeFuncao());
+            stmt.setLong(4, usuario.getFuncao().getId());
             java.sql.Date data = new java.sql.Date(usuario.getDtAdmissao().getTime());
             stmt.setDate(5, data);
             stmt.setString(6, usuario.getTelefone());
+            stmt.setLong(7, usuario.getId());
             stmt.executeUpdate();
         }
     }

@@ -8,7 +8,6 @@ package com.NETS.servletsVenda;
 import com.NETS.dao.DaoProduto;
 import com.NETS.models.Produto;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -38,9 +37,10 @@ public class AdicionarAoCarrinho extends HttpServlet {
         //get the shop cart
         HashMap<Produto, Integer> shopCart = (HashMap<Produto, Integer>) session.getAttribute("shopCart");
         
+        String quantidadeString = request.getParameter("quantidade");
+             String produtoIdString = request.getParameter("selectedItemId");
         
-        String produtoIdString = request.getParameter("selectedProdutoId");
-        
+            Integer quantidade = Integer.parseInt(quantidadeString);
         if (produtoIdString == null || "".equals(produtoIdString)){
             String msg = "Selecione um item para adicionar ao carrinho com uma"
                     + " quantidade valida";
@@ -48,7 +48,6 @@ public class AdicionarAoCarrinho extends HttpServlet {
             session.setAttribute("msg", msg);
         }
         else{
-            Integer quantidade = Integer.parseInt(request.getParameter(produtoIdString));
             Long produtoIdLong = Long.parseLong(produtoIdString); 
             
             if (quantidade > 0){
@@ -65,8 +64,7 @@ public class AdicionarAoCarrinho extends HttpServlet {
                         //Somente adiciona mais quantidade ao item selecionado
                         shopCart.put(produto, shopCart.get(produto) + quantidade);  
                     }
-                    session.setAttribute("shopCart", shopCart);   
-
+                    session.setAttribute("shopCart", shopCart);  
                     String msg = "Item adicionado ao carrinho";
 
                     session.setAttribute("msg", msg);
@@ -80,7 +78,7 @@ public class AdicionarAoCarrinho extends HttpServlet {
             
                 session.setAttribute("msg", msg);
             }
-        }
-        response.sendRedirect(request.getContextPath() + "/selecionarProduto");
+        } 
+        response.sendRedirect(request.getContextPath() + "/selecionaProduto");
     }
 }

@@ -30,25 +30,33 @@ public class ConsultaCliente extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
+        String nome = "";
+        String sobrenome = "";
+        String cpf = "";
+        if (request.getParameter("nome") != null) {
+            nome = request.getParameter("nome");
+        }
+        sobrenome = request.getParameter("sobrenome");
+        sobrenome = request.getParameter("cpf");
+
         ArrayList<Cliente> listaCliente = new ArrayList<>();
-        
+
         try {
             listaCliente = DaoCliente.obterListaCliente();
             request.setAttribute("listaCliente", listaCliente);
         } catch (SQLException ex) {
             Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         RequestDispatcher dispatcher
-           = request.getRequestDispatcher("WEB-INF/jsp/consultarCliente.jsp");
+                = request.getRequestDispatcher("WEB-INF/jsp/consultarCliente.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 }

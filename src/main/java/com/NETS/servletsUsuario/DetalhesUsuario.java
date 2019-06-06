@@ -5,6 +5,7 @@
  */
 package com.NETS.servletsUsuario;
 
+import com.NETS.dao.DaoFuncao;
 import com.NETS.dao.DaoUsuario;
 import com.NETS.models.Usuario;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class DetalhesUsuario extends HttpServlet {
 
         try {
             Usuario usuario = DaoUsuario.obterUsuarioPorId(int_id);
-
+            request.setAttribute("listaFuncao", DaoFuncao.obterListaFuncao());
             request.setAttribute("usuario", usuario);
             request.setAttribute("funcao", usuario.getFuncao());
 

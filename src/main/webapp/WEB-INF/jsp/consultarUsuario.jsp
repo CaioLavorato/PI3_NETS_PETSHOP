@@ -36,6 +36,8 @@
                     </div>
 
                 </div>
+                <br>
+                <br>
                 <div>
                     <button type="submit" class="botao-consultar">Consultar</button>
                 </div>

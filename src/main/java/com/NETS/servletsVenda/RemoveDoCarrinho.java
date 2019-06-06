@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author caio.lavorato
  */
-@WebServlet(name = "RemoveDoCarrinho", urlPatterns = {"/removeDoCarrinho"})
+@WebServlet(name = "RemoveDoCarrinho", urlPatterns = {"/removerDoCarrinho"})
 public class RemoveDoCarrinho extends HttpServlet {
 
 
@@ -45,6 +46,15 @@ public class RemoveDoCarrinho extends HttpServlet {
 
         try {
             Produto produto = DaoProduto.consultaPorId(produtoIdLong);
+            
+            for (Map.Entry<Produto, Integer> entry : shopCart.entrySet()) {
+                Produto key = entry.getKey();
+                Integer value = entry.getValue();
+                if(produto.getId() ==  key.getId()){
+                    produto = key;
+                }
+            }
+            
             shopCart.remove(produto);
             
             session.setAttribute("shopCart", shopCart);   
@@ -52,6 +62,6 @@ public class RemoveDoCarrinho extends HttpServlet {
             Logger.getLogger(AdicionarAoCarrinho.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        response.sendRedirect(request.getContextPath() + "/selecionarProduto");
+        response.sendRedirect(request.getContextPath() + "/selecionaProduto");
     }
 }

@@ -72,7 +72,7 @@ public class DaoFuncao {
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setLong(1, funcao.getId());
+            stmt.setLong(1, id);
             try (ResultSet resultados = stmt.executeQuery()) {
 
                 while (resultados.next()) {

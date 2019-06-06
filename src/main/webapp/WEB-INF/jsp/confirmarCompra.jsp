@@ -15,7 +15,8 @@
 
     <body>
 
-        <form class="steps" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="">
+        <form class="steps" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" action="${pageContext.request.contextPath}/" method="get">
+            
             <ul id="progressbar">
                 <li class="active">Cliente</li>
                 <li class="active">Produto / Carrinho </li>
@@ -39,10 +40,10 @@
                         </tr>
                         <c:forEach items="${venda.listaItemVenda}" var="itemVenda">  
                             <tr>
-                                <td> ${itemVenda.livroFilial.livro.titulo} </td>
+                                <td> ${itemVenda.produtoFilial.produto.nomeProduto}</td>
                                 <td> ${itemVenda.quantidade}</td>
-                                <td> ${itemVenda.valorUnitario} </td>
-                                <td> ${itemVenda.quantidade * itemVenda.valorUnitario} </td>
+                                <td> ${itemVenda.produtoFilial.produto.valor} </td>
+                                <td> ${itemVenda.quantidade * itemVenda.produtoFilial.produto.valor}</td>
                             </tr>
                         </c:forEach>
                     </table>

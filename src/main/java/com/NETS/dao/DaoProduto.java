@@ -114,14 +114,14 @@ public class DaoProduto {
         ArrayList<Produto> listaProduto = new ArrayList<>();
 
         String query = "SELECT * FROM produto WHERE produto.removido = false";
-        if (!nomeProduto.isEmpty()) {
+        if (nomeProduto != null && !nomeProduto.isEmpty()) {
             query = "SELECT * FROM produto WHERE produto.nomeProduto LIKE ? AND produto.removido = false";
         }
 
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            if (!nomeProduto.isEmpty()) {
+            if (nomeProduto != null && !nomeProduto.isEmpty()) {
                 stmt.setString(1, "%" + nomeProduto + "%");
             }
 
@@ -153,6 +153,8 @@ public class DaoProduto {
                 produtoTemp.setCategoria(DaoCategoriaProduto.obterCategoria(produtoTemp.getCategoria().getId()));
             }
         }
+        
+        
         return listaProduto;
     }
 

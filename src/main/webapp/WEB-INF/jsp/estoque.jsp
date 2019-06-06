@@ -28,16 +28,15 @@
                         <c:forEach items="${listaProdutoFilial}" var="produtoFilial">  
                             <tr>
                                 <td> ${produtoFilial.filial.nomeFantasia} </td>
-                                <td><input class="estoque" type="number" name="${produtoFilial.filial.id}"
+                                <td><input class="estoque" type="number" name= ""filial_${produtoFilial.filial.id}"
                                            value="${produtoFilial.estoque}" required="true" min="0"></td>
                             </tr>
                         </c:forEach>
                     </table>
                 </div>
 
-                <div>
-                    <button type="submit" class="botao-estoque"> Atualizar Estoque</button>
-                </div>
+                <input type="hidden" name="id_produto" value="${produto.id}">
+                <button type="submit" class ='button'>Alterar Dados</button>
             </div>
         </form> 
 

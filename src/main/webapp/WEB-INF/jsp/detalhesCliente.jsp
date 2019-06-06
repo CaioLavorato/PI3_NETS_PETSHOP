@@ -11,7 +11,8 @@
 
     <body>
 
-        <form>
+        <form action="${pageContext.request.contextPath}/atualizarCliente"
+              method="post" >
             <h1>Detalhes do Cliente</h1>
 
             <div class="contentform">
@@ -44,13 +45,8 @@
                     </div>
 
                     <div class="form-group">
-                        <p>RG <span></span></p>
-                        <input type="text" name="rg" id="rg"/>
-                    </div>
-
-                    <div class="form-group">
-                        <p>Data de Nascimento<span>*</span></p>
-                        <input type="text" name="dtNascimento" id="datanascimento" required="true" value="${cliente.dtNascimento}" />
+                        <p>Data Nasc. <span>*</span></p>	
+                        <input type="date" name="data" id="dtNascimento" required="true" value="${cliente.dtNascimento}"/>
                     </div>
 
 
@@ -66,7 +62,7 @@
                     </div>	
 
                     <div class="form-group">
-                        <p>Nï¿½mero: <span>*</span></p>	
+                        <p>Numero: <span>*</span></p>	
                         <input type="text" name="numero" id="numero" required="true" value="${endereco.numero}"/>
                     </div> 
 
@@ -74,33 +70,33 @@
                         <p>Estado <span>*</span></p>
                         <select type="text" name="estado" required="true" />
                         <option value="Selecione"> Selecione</option>
-                        <option value="AC">Acre</option>
-                        <option value="AL">Alagoas</option>
-                        <option value="AP">Amapá</option>
-                        <option value="AM">Amazonas</option>
-                        <option value="BA">Bahia</option>
-                        <option value="CE">Ceará</option>
-                        <option value="DF">Distrito Federal</option>
-                        <option value="ES">Espírito Santo</option>
-                        <option value="GO">Goiás</option>
-                        <option value="MA">Maranhão</option>
-                        <option value="MT">Mato Grosso</option>
-                        <option value="MS">Mato Grosso do Sul</option>
-                        <option value="MG">Minas Gerais</option>
-                        <option value="PA">Pará</option>
-                        <option value="PB">Paraíba</option>
-                        <option value="PR">Paraná</option>
-                        <option value="PE">Pernambuco</option>
-                        <option value="PI">Piauí</option>
-                        <option value="RJ">Rio de Janeiro</option>
-                        <option value="RN">Rio Grande do Norte</option>
-                        <option value="RS">Rio Grande do Sul</option>
-                        <option value="RO">Rondônia</option>
-                        <option value="RR">Roraima</option>
-                        <option value="SC">Santa Catarina</option>
-                        <option value="SP">São Paulo</option>
-                        <option value="SE">Sergipe</option>
-                        <option value="TO">Tocantins</option>
+                        <option value="AC" ${endereco.estado == "AC" ? "selected" : ""}>Acre</option>
+                        <option value="AL" ${endereco.estado == "AL" ? "selected" : ""}>Alagoas</option>
+                        <option value="AP" ${endereco.estado == "AP" ? "selected" : ""}>Amapá</option>
+                        <option value="AM" ${endereco.estado == "AM" ? "selected" : ""}>Amazonas</option>
+                        <option value="BA" ${endereco.estado == "BA" ? "selected" : ""}>Bahia</option>
+                        <option value="CE" ${endereco.estado == "CE" ? "selected" : ""}>Ceará</option>
+                        <option value="DF" ${endereco.estado == "DF" ? "selected" : ""}>Distrito Federal</option>
+                        <option value="ES" ${endereco.estado == "ES" ? "selected" : ""}>Espírito Santo</option>
+                        <option value="GO" ${endereco.estado == "GO" ? "selected" : ""}>Goiás</option>
+                        <option value="MA" ${endereco.estado == "MA" ? "selected" : ""}>Maranhão</option>
+                        <option value="MT" ${endereco.estado == "MT" ? "selected" : ""}>Mato Grosso</option>
+                        <option value="MS" ${endereco.estado == "MS" ? "selected" : ""}>Mato Grosso do Sul</option>
+                        <option value="MG" ${endereco.estado == "MG" ? "selected" : ""}>Minas Gerais</option>
+                        <option value="PA" ${endereco.estado == "PA" ? "selected" : ""}>Pará</option>
+                        <option value="PB" ${endereco.estado == "PB" ? "selected" : ""}>Paraíba</option>
+                        <option value="PR" ${endereco.estado == "PR" ? "selected" : ""}>Paraná</option>
+                        <option value="PE" ${endereco.estado == "PE" ? "selected" : ""}>Pernambuco</option>
+                        <option value="PI" ${endereco.estado == "PI" ? "selected" : ""}>Piauí</option>
+                        <option value="RJ" ${endereco.estado == "RJ" ? "selected" : ""}>Rio de Janeiro</option>
+                        <option value="RN" ${endereco.estado == "RN" ? "selected" : ""}>Rio Grande do Norte</option>
+                        <option value="RS" ${endereco.estado == "RS" ? "selected" : ""}>Rio Grande do Sul</option>
+                        <option value="RO" ${endereco.estado == "RO" ? "selected" : ""}>Rondônia</option>
+                        <option value="RR" ${endereco.estado == "RR" ? "selected" : ""}>Roraima</option>
+                        <option value="SC" ${endereco.estado == "SC" ? "selected" : ""}>Santa Catarina</option>
+                        <option value="SP" ${endereco.estado == "SP" ? "selected" : ""}>São Paulo</option>
+                        <option value="SE" ${endereco.estado == "SE" ? "selected" : ""}>Sergipe</option>
+                        <option value="TO" ${endereco.estado == "TO" ? "selected" : ""}>Tocantins</option>
                         </select>
                     </div>
 
@@ -120,14 +116,16 @@
                     </div>
                 </div>
             </div>
-
+            <input type="hidden" name="id" value="${cliente.id}">
+            <input type="hidden" name="idEndereco" value="${endereco.id}">
             <button type="submit" class="botao-alterar">Alterar Dados</button>
 
 
         </form>	
 
         <form class="botaoExcluir" action="${pageContext.request.contextPath}/excluirCliente"
-              accept-charset="" <input type="hidden" name="id_livro" value="${cliente.id}">
+              method="post">
+            <input type="hidden" name="id" value="${cliente.id}">
             <button type="submit" class="botao-excluir">Excluir Cadastro</button>
         </form>
 

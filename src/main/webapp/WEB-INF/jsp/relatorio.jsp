@@ -24,9 +24,10 @@
                     </c:forEach>
                     </select>
                 </div>
+                <button type="submit" class="botao-consultar">Consultar</button>
             </div>
 
-            <button type="submit" class="botao-consultar">Consultar</button>
+
         </form>
 
         <div class="tabela">
@@ -66,8 +67,9 @@
 
             </table>
 
-            <form>
-                <center>Valor Total</center> <br> <input class="valor-total" readonly="true" type="text" name="total" value="${total}">
+            <form><br><br>
+                <center>Valor Total</center> <br> 
+                <center><input class="valor-total" readonly="true" type="text" name="total" value="${total}"></center>
             </form>
         </div>
         <div class="navbar">

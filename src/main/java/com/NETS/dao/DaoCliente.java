@@ -46,18 +46,26 @@ public class DaoCliente {
         
         DaoEndereco.atualizarEndereco(cliente.getEndereco());
         
-        String query = "UPDATE cliente SET nome=?, sobrenome=?, cpf=?, dt_nascimento=? WHERE id=?";
+        String query = "UPDATE cliente SET  id_endereco=?,nome=?, sobrenome=?, cpf=?, sexo=?, dt_nascimento=? WHERE id=?";
         
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setLong(1, cliente.getEndereco().getId());
+            stmt.setString(2, cliente.getNome());
+            stmt.setString(3, cliente.getSobrenome());
+            stmt.setString(4, cliente.getCpf());
+            stmt.setString(5, cliente.getSexo());
+            java.sql.Date data =null;
+            if(cliente.getDtNascimento() != null){
+                data = new java.sql.Date(cliente.getDtNascimento().getTime());
             
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getSobrenome());
-            stmt.setString(3, cliente.getCpf());
+            }
+            stmt.setDate(6, data);
             
-            java.sql.Date data = new java.sql.Date(cliente.getDtNascimento().getTime());
-            stmt.setDate(4, data);
-            stmt.setLong(5, cliente.getId());
+            stmt.setLong(7, cliente.getId());
+             
+            stmt.executeUpdate();
+             
         }
     }
     
@@ -91,7 +99,7 @@ public class DaoCliente {
     }
     
     public static Cliente excluirCliente(Cliente cliente) throws SQLException{
-        String query = "UPDATE cliente SET removido=true WHERE (cliente.id=?)";
+        String query = "UPDATE cliente SET removido=1 WHERE (cliente.id=?)";
         
         try (Connection conn = ConnectionDB.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -107,7 +115,7 @@ public class DaoCliente {
     public static ArrayList<Cliente> obterListaCliente() throws SQLException{
         ArrayList<Cliente> listaCliente = new ArrayList<>();
         
-        String query = "SELECT * FROM cliente WHERE removido=1";
+        String query = "SELECT * FROM cliente WHERE removido = 0";
         
         try (Connection conn = ConnectionDB.getConnection();
                PreparedStatement stmt = conn.prepareStatement(query)) {

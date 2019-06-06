@@ -50,7 +50,7 @@ public class SelecionaCliente extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("clienteVenda", cliente);
 
-                    response.sendRedirect(request.getContextPath() + "/selecionaCliente");
+                    response.sendRedirect(request.getContextPath() + "/selecionaProduto");
 
                 }
 

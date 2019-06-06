@@ -11,15 +11,18 @@
 
     <body>
 
-        <form class="steps" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" method="get">
-            <ul id="progressbar">
-                <li class="active">Cliente</li>
-                <li>Produto / Carrinho </li>
-                <li>Confirmação</li>
-            </ul>
+        <ul id="progressbar">
+            <li class="active">Cliente</li>
+            <li>Produto / Carrinho </li>
+            <li>Confirmação</li>
+        </ul>
 
-            <h1> VENDA </h1>
-            <fieldset>
+
+        <fieldset>
+            
+
+            <form class="steps" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" method="get">
+                <h1> VENDA </h1>
                 <h2 class="fs-title">Cliente <i class="fa fa-user" style="font-size: 30px;"></i></h2>
 
                 <div>
@@ -53,7 +56,7 @@
                             <th>CPF</th>
                         </tr>
                         <c:forEach items="${listaCliente}" var="cliente">
-                            <tr onclick="window.location = '/PetShop_Nets-1.0-SNAPSHOT/selecionaCliente?idclientevenda=${cliente.id}';">
+                            <tr onclick="window.location = '/PetShop_PI3/selecionaCliente?idclientevenda=${cliente.id}';">
                                 <td> ${cliente.nome} </td>
                                 <td> ${cliente.sobrenome} </td>
                                 <td> ${cliente.cpf} </td>
@@ -63,16 +66,20 @@
                     </table>
                 </div>
 
+
+            </form >
+            <form class="steps" action="${pageContext.request.contextPath}/cancelarVenda" method="post">
                 <button type="submit" class="botao-cancelar">Cancelar Venda</button>
+            </form>
 
-            </fieldset>
 
-            <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-            <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-            <script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js'></script>
-            <script  src="./js/Avisos.js"></script>
+        </fieldset>
 
-        </form>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+        <script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js'></script>
+        <script  src="./js/Avisos.js"></script>
+
 
     </body>
 
