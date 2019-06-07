@@ -55,7 +55,7 @@ CREATE TABLE Usuario (
     nome VARCHAR (100) NOT NULL,
     sobrenome VARCHAR (100) NOT NULL,
     sexo VARCHAR (100) NOT NULL,
-    funcao VARCHAR (100) NOT NULL,
+    idfuncao VARCHAR (100) NOT NULL,
     dt_admissao DATE NOT NULL,
     removido BOOLEAN NOT NULL DEFAULT FALSE
 );
